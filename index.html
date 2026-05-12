@@ -1,16 +1,81 @@
 <!DOCTYPE html>
-<html>
-<head lang="uk">
+<html lang="uk">
+<head>
     <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
     <title>My Page</title>
-
-
-    <link rel="stylesheet" type="text/css" href="main.css" />
+    <link rel="stylesheet" type="text/css" href="main.css">
 </head>
 <body>
-	<span class="product-item">
-		Apple
-		<span class="amount">4</span>
-	</span>
+	<header>
+		<h1>Кошик</h1>
+	</header>
+	<main>
+		<section class="management" aria-labelledby="products-heading">
+			<h2 id="products-heading" class="visually-hidden">Керування товарами</h2>
+			<form class="product-input">
+				<label>
+					Назва товару
+					<input type="text" name="product-name" placeholder="Назва товару">
+				</label>
+				<button type="submit">Додати</button>
+			</form>
+			<ul>
+				<li>
+					<span class="product-title">Яблуко</span>
+					<span class="number-of">
+						<button type="button" aria-label="Зменшити кількість">-</button>
+						<span class="n">2</span>
+						<button type="button" aria-label="Збільшити кількість">+</button>
+					</span>
+					<button type="button" class="status">Не куплено</button>
+					<button type="button" class="delete" aria-label="Видалити товар">X</button>
+				</li>
+				<li>
+					<span class="product-title">Банан</span>
+					<span class="number-of">
+						<button type="button" aria-label="Зменшити кількість">-</button>
+						<span class="n">2</span>
+						<button type="button" aria-label="Збільшити кількість">+</button>
+					</span>
+					<button type="button" class="status">Не куплено</button>
+					<button type="button" class="delete" aria-label="Видалити товар">X</button>
+				</li>
+				<li>
+					<span class="product-title">Сир</span>
+					<span class="number-of">
+						<button type="button" aria-label="Зменшити кількість">-</button>
+						<span class="n">2</span>
+						<button type="button" aria-label="Збільшити кількість">+</button>
+					</span>
+					<button type="button" class="status">Не куплено</button>
+					<button type="button" class="delete" aria-label="Видалити товар">X</button>
+				</li>
+			</ul>
+		</section>
+		<aside>
+			<div class="left">
+				Залишилося
+				<span class="product-item">
+					Яблуко
+					<span class="amount">4</span>
+				</span>
+				<span class="product-item">
+					Банан
+					<span class="amount">4</span>
+				</span>
+				<span class="product-item">
+					Сир
+					<span class="amount">4</span>
+				</span>
+			</div>
+			<div class="bought">
+				Куплено
+			</div>
+		</aside>
+	</main>
+	<footer>
+    	<p>© 2026</p>
+	</footer>
 </body>
 </html>
