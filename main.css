@@ -1,6 +1,10 @@
+* {
+	box-sizing: border-box;
+}
+
 body {
 	background-color: #d1d5db;
-	padding: 30px;
+	padding: 30px 2%;
     font-family: sans-serif;
 	font-weight: bold;
 }
@@ -8,21 +12,19 @@ body {
 main {
 	display: flex;
     justify-content: space-between; 
+	align-items: flex-start;
     gap: 30px; 
-}
-
-@media (max-width: 650px) {
-    main {
-        flex-direction: column;
-    }
+	margin: 0;
 }
 
 .management {
-	width: 70%;
+	flex: 1;
+	min-width: min-content;
 }
 
 aside {
 	width: 25%;
+	min-width: 200px;
 }
 
 .management, aside {
@@ -67,9 +69,9 @@ ul {
 li {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 15px;
+    padding: 10px;
     border-bottom: 1px solid #eee; 
+	gap: 10px;
 }
 
 li:last-child {
@@ -81,16 +83,17 @@ li:last-child {
     align-items: center;
 	justify-content: center;
     gap: 5px;
+	min-width: max-content;
 }
 
 .number-of button:first-child, .delete {
 	background-color: rgb(224, 44, 44);
-	box-shadow: inset 0 -3px 0px rgb(180, 44, 44);
+	box-shadow: inset 0 -4px 0px rgb(180, 44, 44);
 }
 
 .number-of button:last-child {
 	background-color: rgb(61, 152, 61);
-	box-shadow: inset 0 -3px 0 rgb(20, 120, 35);
+	box-shadow: inset 0 -4px 0 rgb(20, 120, 35);
 }
 
 .number-of button:first-child:hover, .delete:hover {
@@ -105,8 +108,8 @@ li:last-child {
 .number-of button:last-child, .number-of button:first-child {
 	border-radius: 100%;
 	border: none;
-	width: 30px;
-	height: 30px;
+	width: 40px;
+	height: 40px;
 	color: white;
 	font-weight: bold;
 }
@@ -116,15 +119,15 @@ li:last-child {
 	align-items: center;
 	justify-content: center;
 	background-color: lightgray;
-	width: 27px;
-	height: 27px;
+	width: 32px;
+	height: 32px;
 	font-size: 75%;
 	border-radius: 5px;
 	color: rgb(71, 71, 71);
 }
 
 .product-title, .controls, .number-of, .product-edit-container {
-	width: 33.3%;
+    width: 33.33%;
 }
 
 .product-edit {
@@ -135,12 +138,14 @@ li:last-child {
     border-radius: 3px;
     outline: none; 
 	width: 60%;
+	min-width: 80px;
 }
 
 .controls {
 	display: flex;
 	justify-content: flex-end;
 	gap: 5px;
+	min-width: max-content;
 }
 
 .is-bought .number-of button{
@@ -164,23 +169,23 @@ button:disabled {
 }
 
 .status {
-	height: 30px;
-	width: 100px;
+	height: 40px;
+	width: 90px;
 	background-color: #eef0f2;
 	border: 1px solid rgb(171, 170, 170);
 	border-radius: 5px;
 	font-weight: bold;
 	color: rgb(92, 92, 92);
-	box-shadow: inset 0 -2px 0 rgb(171, 170, 170);
+	box-shadow: inset 0 -3px 0 rgb(171, 170, 170);
 }
 
 .is-bought .status {
-	width: 120px;
+	width: 110px;
 }
 
 .delete {
-	width: 30px;
-	height: 30px;
+	width: 40px;
+	height: 40px;
 	border: none;
 	border-radius: 5px;
 	color: white;
@@ -200,6 +205,7 @@ button:disabled {
 
 .product-input input {
 	flex: auto;
+	min-width: 0;
 	padding: 12px 15px;
 	border: 1px solid #e5e7eb;
 	border-right: none;
@@ -209,13 +215,15 @@ button:disabled {
 }
 
 .product-input button {
+	flex-shrink: 0;
 	background-color: #2b82d9;
 	color: white;
 	border: none;
 	padding: 0px 25px;
 	border-radius: 0 5px 5px 0;
 	font-weight: bold;
-	box-shadow: inset 0 -3px 0 #1b62ad;
+	box-shadow: inset 0 -4px 0 #1b62ad;
+	width: 120px;
 }
 
 .product-input button:hover {
@@ -239,4 +247,43 @@ aside h3 {
 
 .is-bought .tags-container {
     border-bottom: none;
+}
+
+@media (max-width: 650px) {
+    main {
+        flex-direction: column;
+    }
+	aside, .management {
+		width: 100%;
+	}
+	
+}
+
+button {
+    position: relative; 
+}
+
+button[data-tooltip]::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 120%;
+    left: 50%;
+    transform: translateX(-50%) scale(0);
+    transform-origin: bottom center;
+    background-color: #8b5cf6;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: normal;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    transition: transform 0.3s, opacity 0.3s ease;
+    z-index: 100;
+}
+
+button[data-tooltip]:hover::after {
+    transform: translateX(-50%) scale(1);
+    opacity: 1;
 }

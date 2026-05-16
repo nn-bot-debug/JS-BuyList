@@ -11,32 +11,32 @@
 		<section class="management" aria-label="Керування товарами">
 			<form class="product-input">
 				<label for="product-name" aria-label="Назва товару"></label>
-				<input type="text" name="product-name" placeholder="Назва товару">
-				<button type="submit">Додати</button>
+				<input type="text" id="product-name" placeholder="Назва товару">
+				<button type="submit" data-tooltip="Додати товар">Додати</button>
 			</form>
 			<ul>
 				<li class="is-bought">
 					<span class="product-title">Яблука</span>
 					<span class="number-of">
-						<button type="button" aria-label="Зменшити кількість">&minus;</button>
+						<button type="button" data-tooltip="Зменшити кількість" aria-label="Зменшити кількість">&minus;</button>
 						<span class="n">2</span>
-						<button type="button" aria-label="Збільшити кількість">&plus;</button>
+						<button type="button" data-tooltip="Збільшити кількість" aria-label="Збільшити кількість">&plus;</button>
 					</span>
 					<div class="controls">
-						<button type="button" class="status">Не куплено</button>
-						<button type="button" class="delete" aria-label="Видалити товар">&times;</button>
+						<button type="button" class="status" data-tooltip="Позначити як не куплено">Не куплено</button>
+						<button type="button" class="delete" aria-label="Видалити товар" data-tooltip="Видалити товар">&times;</button>
 					</div>
 				</li>
 				<li>
 					<span class="product-title">Банани</span>
 					<span class="number-of">
-						<button type="button" aria-label="Зменшити кількість">&minus;</button>
+						<button type="button" data-tooltip="Зменшити кількість" aria-label="Зменшити кількість">&minus;</button>
 						<span class="n">2</span>
-						<button type="button" aria-label="Збільшити кількість">&plus;</button>
+						<button type="button" data-tooltip="Збільшити кількість" aria-label="Збільшити кількість">&plus;</button>
 					</span>
 					<div class="controls">
-						<button type="button" class="status">Куплено</button>
-						<button type="button" class="delete" aria-label="Видалити товар">&times;</button>
+						<button type="button" class="status" data-tooltip="Позначити як куплено">Куплено</button>
+						<button type="button" class="delete" aria-label="Видалити товар" data-tooltip="Видалити товар">&times;</button>
 					</div>
 				</li>
 				<li>
@@ -44,13 +44,13 @@
 						<input type="text" class="product-edit" value="Сир">
 					</div>	
 					<span class="number-of">
-						<button type="button" aria-label="Зменшити кількість" disabled>&minus;</button>
+						<button type="button" data-tooltip="Зменшити кількість" aria-label="Зменшити кількість" disabled>&minus;</button>
 						<span class="n">1</span>
-						<button type="button" aria-label="Збільшити кількість">&plus;</button>
+						<button type="button" data-tooltip="Збільшити кількість" aria-label="Збільшити кількість">&plus;</button>
 					</span>
 					<div class="controls">
-						<button type="button" class="status">Куплено</button>
-						<button type="button" class="delete" aria-label="Видалити товар">&times;</button>
+						<button type="button" class="status" data-tooltip="Позначити як куплено">Куплено</button>
+						<button type="button" class="delete" aria-label="Видалити товар" data-tooltip="Видалити товар">&times;</button>
 					</div>
 				</li>
 			</ul>
