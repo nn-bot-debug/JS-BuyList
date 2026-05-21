@@ -12,11 +12,14 @@ initialProducts.forEach((product) => {
     addProduct(product.name, product.amount, product.isBought);
 });
 
+updateStatistics();
+
 form.addEventListener('submit', (e) => { 
     e.preventDefault();
     const productName = input.value.trim();
     if (productName) {
         addProduct(productName);
+        updateStatistics();
         input.value = '';
         input.focus();
     }
@@ -50,6 +53,7 @@ function addProduct(name, amount = 1, isBought = false) {
 list.addEventListener('click', (e) => {
     if (e.target.classList.contains('delete')) { 
         e.target.closest('li').remove();
+        updateStatistics();
     }
 
     if (e.target.classList.contains('status')) {
@@ -58,6 +62,7 @@ list.addEventListener('click', (e) => {
         const isBought = listItem.classList.contains('is-bought');
         e.target.textContent = isBought ? 'Не куплено' : 'Куплено';
         e.target.setAttribute('data-tooltip', isBought ? 'Позначити як не куплено' : 'Позначити як куплено');
+        updateStatistics();
     }
     
     if (e.target.classList.contains('product-title')) {
@@ -79,12 +84,13 @@ list.addEventListener('click', (e) => {
 
         const saveEdit = () => {
             const newName = editInput.value.trim();
-            const finalName = newName ? newName : currentName;
+            const finalName = newName ? newName : currentText;
 
             const newSpan = document.createElement('span');
             newSpan.className = 'product-title';
             newSpan.textContent = finalName;
             editContainer.replaceWith(newSpan);
+            updateStatistics();
         };
 
         editInput.addEventListener('blur', saveEdit);
@@ -117,5 +123,38 @@ list.addEventListener('click', (e) => {
             }
         }
         amountSpan.textContent = currentAmount;
+        updateStatistics();
     }
 });
+
+function updateStatistics() {
+    const leftTagsContainer = document.querySelector('aside .left .tags-container');
+    const boughtTagsContainer = document.querySelector('aside .is-bought .tags-container');
+
+    let leftTagsString = '';
+    let boughtTagsString = '';
+
+    const allItems = document.querySelectorAll('.management ul li');
+
+    allItems.forEach(item => {
+        const name = item.querySelector('.product-title').textContent;
+        const amount = item.querySelector('.n').textContent;
+        const isBought = item.classList.contains('is-bought');
+
+        const badgeHTML = `
+            <span class="product-item">
+                <span class="name">${name}</span>
+                <span class="amount">${amount}</span>
+            </span>
+        `;
+
+        if (isBought) {
+            boughtTagsString += badgeHTML;
+        } else {
+            leftTagsString += badgeHTML;
+        }
+    });
+
+    leftTagsContainer.innerHTML = leftTagsString;
+    boughtTagsContainer.innerHTML = boughtTagsString;
+}
