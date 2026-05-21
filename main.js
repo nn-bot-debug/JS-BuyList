@@ -1,6 +1,7 @@
 const input = document.getElementById('product-name');
 const form = document.querySelector('.product-input');
 const list = document.querySelector('.management ul');
+const savedData = localStorage.getItem('products');
 
 const initialProducts = [
     { name: 'Яблука', amount: 2, isBought: true },
@@ -8,7 +9,9 @@ const initialProducts = [
     { name: 'Сир', amount: 1, isBought: false }
 ];
 
-initialProducts.forEach((product) => {
+const productsToLoad = savedData ? JSON.parse(savedData) : initialProducts;
+
+productsToLoad.forEach((product) => {
     addProduct(product.name, product.amount, product.isBought);
 });
 
@@ -134,12 +137,16 @@ function updateStatistics() {
     let leftTagsString = '';
     let boughtTagsString = '';
 
+    const productsToSave = [];
     const allItems = document.querySelectorAll('.management ul li');
 
     allItems.forEach(item => {
         const name = item.querySelector('.product-title').textContent;
         const amount = item.querySelector('.n').textContent;
         const isBought = item.classList.contains('is-bought');
+
+        const productObject = { name, amount, isBought };
+        productsToSave.push(productObject);
 
         const badgeHTML = `
             <span class="product-item">
@@ -154,6 +161,7 @@ function updateStatistics() {
             leftTagsString += badgeHTML;
         }
     });
+    localStorage.setItem('products', JSON.stringify(productsToSave));
 
     leftTagsContainer.innerHTML = leftTagsString;
     boughtTagsContainer.innerHTML = boughtTagsString;
