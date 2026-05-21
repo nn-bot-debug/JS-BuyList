@@ -46,3 +46,76 @@ function addProduct(name, amount = 1, isBought = false) {
     `;
     list.append(listItem);
 }
+
+list.addEventListener('click', (e) => {
+    if (e.target.classList.contains('delete')) { 
+        e.target.closest('li').remove();
+    }
+
+    if (e.target.classList.contains('status')) {
+        const listItem = e.target.closest('li');
+        listItem.classList.toggle('is-bought');
+        const isBought = listItem.classList.contains('is-bought');
+        e.target.textContent = isBought ? 'Не куплено' : 'Куплено';
+        e.target.setAttribute('data-tooltip', isBought ? 'Позначити як не куплено' : 'Позначити як куплено');
+    }
+    
+    if (e.target.classList.contains('product-title')) {
+        const listItem = e.target.closest('li');
+        if (listItem.classList.contains('is-bought')) return;
+        const currentText = e.target.textContent;
+        
+        const editContainer = document.createElement('div');
+        editContainer.className = 'product-edit-container';
+
+        const editInput = document.createElement('input');
+        editInput.type = 'text';
+        editInput.value = currentText;
+        editInput.className = 'product-edit';
+
+        editContainer.append(editInput);
+        e.target.replaceWith(editContainer);
+        editInput.focus();
+
+        const saveEdit = () => {
+            const newName = editInput.value.trim();
+            const finalName = newName ? newName : currentName;
+
+            const newSpan = document.createElement('span');
+            newSpan.className = 'product-title';
+            newSpan.textContent = finalName;
+            editContainer.replaceWith(newSpan);
+        };
+
+        editInput.addEventListener('blur', saveEdit);
+
+        editInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    saveEdit();
+                }
+        });
+    }
+
+    const targetText = e.target.textContent;
+
+    if (targetText === '+' || targetText === '−') {
+        const listItem = e.target.closest('li');
+        if (listItem.classList.contains('is-bought')) return;
+        const amountSpan = listItem.querySelector('.n');
+        let currentAmount = Number(amountSpan.textContent);
+
+        if (targetText === '+') {
+            currentAmount++;
+            const minusButton = listItem.querySelector('button[aria-label="Зменшити кількість"]');
+            minusButton.removeAttribute('disabled');
+        }else if (targetText === '−') {
+            if (currentAmount > 1) {
+                currentAmount--;
+            }
+            if (currentAmount === 1) {
+                e.target.setAttribute('disabled', '');
+            }
+        }
+        amountSpan.textContent = currentAmount;
+    }
+});
