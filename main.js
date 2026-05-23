@@ -39,7 +39,7 @@ function addProduct(name, amount = 1, isBought = false) {
     const minusDisabled = amount <= 1 ? 'disabled' : '';
 
     listItem.innerHTML = `
-        <span class="product-title">${name}</span>
+        <span class="product-title" tabindex="0" role="button" aria-label="Редагувати: ${name}">${name}</span>
         <span class="number-of">
             <button type="button" data-tooltip="Зменшити кількість" aria-label="Зменшити кількість" ${minusDisabled}>&minus;</button>
             <span class="n">${amount}</span>
@@ -52,6 +52,12 @@ function addProduct(name, amount = 1, isBought = false) {
     `;
     list.append(listItem);
 }
+
+list.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && e.target.classList.contains('product-title')) {
+        e.target.click();   
+    }
+});
 
 list.addEventListener('click', (e) => {
     if (e.target.classList.contains('delete')) { 
@@ -80,18 +86,24 @@ list.addEventListener('click', (e) => {
         editInput.type = 'text';
         editInput.value = currentText;
         editInput.className = 'product-edit';
+        editInput.name = 'product-edit-name';
+        editInput.setAttribute('aria-label', 'Нова назва товару');
 
         editContainer.append(editInput);
         e.target.replaceWith(editContainer);
         editInput.focus();
 
         const saveEdit = () => {
+            editInput.removeEventListener('blur', saveEdit);
             const newName = editInput.value.trim();
             const finalName = newName ? newName : currentText;
 
             const newSpan = document.createElement('span');
             newSpan.className = 'product-title';
             newSpan.textContent = finalName;
+            newSpan.setAttribute('tabindex', '0');
+            newSpan.setAttribute('role', 'button');
+            newSpan.setAttribute('aria-label', `Редагувати: ${finalName}`);
             editContainer.replaceWith(newSpan);
             updateStatistics();
         };
